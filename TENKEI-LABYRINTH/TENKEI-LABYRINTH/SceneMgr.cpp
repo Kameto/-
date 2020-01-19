@@ -3,8 +3,9 @@
 SceneMgr::SceneMgr()
 {
 	mpScene	 = nullptr;
+	mpScene = new LoadScene();
 	preScene = mpScene->GetNowScene();
-	fadeCount = 0;
+	fadeCount = 255;
 	fadeFlag = false;
 	brightFlag = true;
 }
@@ -44,28 +45,31 @@ void SceneMgr::FadeDisplay()
 
 void SceneMgr::FadeCount()
 {
-	if (brightFlag)
+	if(fadeFlag)
 	{
-		if (fadeCount < 255)
+		if (brightFlag)
 		{
-			fadeCount++;
+			if (fadeCount < 255)
+			{
+				fadeCount++;
+			}
+			else
+			{
+				brightFlag = false;
+				fadeFlag = false;
+			}
 		}
 		else
 		{
-			brightFlag = false;
-			fadeFlag = false;
-		}
-	}
-	else
-	{
-		if (fadeCount > 0)
-		{
-			fadeCount--;
-		}
-		else
-		{
-			brightFlag = true;
-			fadeFlag = false;
+			if (fadeCount > 0)
+			{
+				fadeCount--;
+			}
+			else
+			{
+				brightFlag = true;
+				fadeFlag = false;
+			}
 		}
 	}
 }
@@ -76,22 +80,15 @@ void SceneMgr::SceneUpdate()
 	mpScene->Update();
 	if (mpScene->GetNowScene() != preScene)
 	{
-		fadeFlag = true;
-		FadeCount();
-		if (!fadeFlag)
-		{
-			ChangeScene();
-		}
+		ChangeScene();
 	}
 }
 
 void SceneMgr::SceneDraw()
 {
-	if(fadeFlag)
-	{
-		FadeDisplay();
-	}
 	mpScene->Draw();
+
+	DrawFormatString(1700, 0, 0xFFFFFF, "counter : %d", fadeCount);
 }
 
 bool SceneMgr::GetEndInput()
