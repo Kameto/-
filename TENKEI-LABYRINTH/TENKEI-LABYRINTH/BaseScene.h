@@ -6,7 +6,8 @@ typedef enum class SceneName
 	eLoad,		// 画像等の読み込み
 	eTitle,		// タイトル画面
 	eGame,		// ゲーム全体処理
-	eCredit		// クリア時クレジット
+	eCredit,	// クリア時クレジット
+	eSceneSize	// 総数
 }S_Name;
 
 class BaseScene

@@ -21,7 +21,7 @@ void BaseScene::UpdateDebugSceneData(S_Name nextScene)
 {
 	if (Keyboard::GetKey(KEY_INPUT_RETURN) == 1)
 	{
-		this->nowScene = nextScene;
+		this->nowScene = (S_Name)(((int)this->nowScene + 1) % (int)S_Name::eSceneSize);
 	}
 }
 

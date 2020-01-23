@@ -3,6 +3,7 @@
 GameMgr::GameMgr()
 {
 	this->mpGameScene = nullptr;
+	this->mpGameScene = new GameLoadScene();
 	this->preGameScene = this->mpGameScene->GetNowGameScene();
 }
 
@@ -18,8 +19,10 @@ void GameMgr::ChangeGameScene()
 	switch (this->mpGameScene->GetNowGameScene())
 	{
 	case GS_Name::eGameLoad:
+		this->mpGameScene = new GameLoadScene();
 		break;
 	case GS_Name::eLabyrinth:
+		this->mpGameScene = new LabyrinthScene();
 		break;
 	case GS_Name::eSaveArea:
 		break;

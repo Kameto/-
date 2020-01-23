@@ -9,6 +9,7 @@ typedef enum class GameSceneName
 	eStatusCheck,	// ステータス確認
 	eSaveDisplay,	// セーブ画面
 	eGachaDisplay,	// ガチャ画面
+	eSceneSize		// 総数
 }GS_Name;
 
 class BaseGameScene
@@ -19,6 +20,8 @@ public:
 	virtual void GameUpdate() = 0;
 	virtual void GameDraw() = 0;
 	GS_Name GetNowGameScene();
+	void ChangeGameScene();
+	void NowSceneDraw();
 
 protected:
 	static GS_Name nowGameScene;

@@ -1,5 +1,6 @@
 #pragma once
-#include "BaseGameScene.h"
+#include "GameLoadScene.h"
+#include "LabyrinthScene.h"
 
 class GameMgr
 {
@@ -10,7 +11,6 @@ public:
 	void GameUpdate();
 	void GameDraw();
 
-private:
 	BaseGameScene* mpGameScene;
 	GS_Name preGameScene;
 };

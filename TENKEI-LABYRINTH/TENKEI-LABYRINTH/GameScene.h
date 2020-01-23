@@ -1,5 +1,7 @@
 #pragma once
 #include "BaseScene.h"
+#include "GameMgr.h"
+
 class GameScene :
 	public BaseScene
 {
@@ -11,5 +13,6 @@ public:
 	void Update();
 	void Draw();
 
+private:
+	GameMgr* gmgr;
 };
-
