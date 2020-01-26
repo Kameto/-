@@ -20,7 +20,7 @@ public:
 	virtual void GameUpdate() = 0;
 	virtual void GameDraw() = 0;
 	GS_Name GetNowGameScene();
-	void ChangeGameScene();
+	void ChangeGameScene(GS_Name nextScene);
 	void NowSceneDraw();
 
 protected:

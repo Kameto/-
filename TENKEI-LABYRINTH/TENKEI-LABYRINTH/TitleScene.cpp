@@ -23,7 +23,7 @@ void TitleScene::UI_Draw()
 void TitleScene::Update()
 {
 	UI_Update();
-	BaseScene::UpdateDebugSceneData(S_Name::eGame);
+	BaseScene::ChangeScene(S_Name::eGame);
 }
 
 void TitleScene::Draw()

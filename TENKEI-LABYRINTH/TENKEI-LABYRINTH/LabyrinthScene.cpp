@@ -13,7 +13,7 @@ LabyrinthScene::~LabyrinthScene()
 
 void LabyrinthScene::GameUpdate()
 {
-	BaseGameScene::ChangeGameScene();
+	BaseGameScene::ChangeGameScene(GS_Name::eGameLoad);
 }
 
 void LabyrinthScene::GameDraw()

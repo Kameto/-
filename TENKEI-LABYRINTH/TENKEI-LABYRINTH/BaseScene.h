@@ -1,5 +1,6 @@
 #pragma once
 #include "DefFunc.h"
+#include "Graphics.h"
 
 typedef enum class SceneName
 {
@@ -20,9 +21,10 @@ public:
 	virtual void Update() = 0;
 	virtual void Draw() = 0;
 	S_Name GetNowScene();
-	void UpdateDebugSceneData(S_Name nextScene);
-	void DrawDebugSceneData();
 
 protected:
+	void ChangeScene(S_Name nextScene);
+	void DrawDebugSceneData();
+
 	static S_Name nowScene;
 };

@@ -24,7 +24,7 @@ void GameScene::Update()
 {
 	UI_Update();
 	gmgr->GameUpdate();
-	BaseScene::UpdateDebugSceneData(S_Name::eCredit);
+	BaseScene::ChangeScene(S_Name::eCredit);
 }
 
 void GameScene::Draw()

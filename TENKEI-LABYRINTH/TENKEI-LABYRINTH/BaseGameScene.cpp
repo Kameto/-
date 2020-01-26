@@ -17,11 +17,11 @@ GS_Name BaseGameScene::GetNowGameScene()
 	return this->nowGameScene;
 }
 
-void BaseGameScene::ChangeGameScene()
+void BaseGameScene::ChangeGameScene(GS_Name nextScene)
 {
 	if (Keyboard::GetKey(KEY_INPUT_SPACE) == 1)
 	{
-		this->nowGameScene = (GS_Name)(((int)this->nowGameScene + 1) % (int)GS_Name::eSceneSize);
+		this->nowGameScene = nextScene;
 	}
 }
 

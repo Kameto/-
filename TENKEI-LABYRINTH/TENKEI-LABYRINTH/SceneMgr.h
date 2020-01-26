@@ -20,11 +20,6 @@ public:
 	bool GetEndInput();
 
 private:
-	void FadeDisplay();
-	void FadeCount();
 	BaseScene* mpScene;
 	S_Name preScene;
-	int fadeCount;
-	bool fadeFlag;
-	bool brightFlag;
 };

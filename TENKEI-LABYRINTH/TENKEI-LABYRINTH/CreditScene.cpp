@@ -23,7 +23,7 @@ void CreditScene::UI_Draw()
 void CreditScene::Update()
 {
 	UI_Update();
-	BaseScene::UpdateDebugSceneData(S_Name::eLoad);
+	BaseScene::ChangeScene(S_Name::eLoad);
 }
 
 void CreditScene::Draw()
