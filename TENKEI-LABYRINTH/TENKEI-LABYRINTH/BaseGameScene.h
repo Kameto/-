@@ -1,5 +1,6 @@
 #pragma once
 #include "DefFunc.h"
+#include "Graphics.h"
 
 typedef enum class GameSceneName
 {

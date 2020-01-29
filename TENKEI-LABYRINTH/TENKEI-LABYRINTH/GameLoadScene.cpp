@@ -3,7 +3,7 @@
 GameLoadScene::GameLoadScene()
 	: BaseGameScene()
 {
-
+	BaseGameScene::nowGameScene = GS_Name::eGameLoad;
 }
 
 GameLoadScene::~GameLoadScene()

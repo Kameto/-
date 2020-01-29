@@ -10,4 +10,7 @@ public:
 	void UI_Draw();
 	void Update();
 	void Draw();
+
+private:
+	int* effectCounter = new int[5];
 };

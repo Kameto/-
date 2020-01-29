@@ -25,6 +25,7 @@ void GameMgr::ChangeGameScene()
 		this->mpGameScene = new LabyrinthScene();
 		break;
 	case GS_Name::eSaveArea:
+		this->mpGameScene = new SaveAreaScene();
 		break;
 	case GS_Name::eStatusCheck:
 		break;

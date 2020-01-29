@@ -2,12 +2,18 @@
 
 TitleScene::TitleScene()
 {
-
+	for (int i = 0; i < 5; i++)
+	{
+		effectCounter[i] = 0;
+	}
 }
 
 TitleScene::~TitleScene()
 {
-
+	for (int i = 0; i < 5; i++)
+	{
+		effectCounter[i] = 0;
+	}
 }
 
 void TitleScene::UI_Update()
@@ -24,10 +30,14 @@ void TitleScene::Update()
 {
 	UI_Update();
 	BaseScene::ChangeScene(S_Name::eGame);
+
 }
 
 void TitleScene::Draw()
 {
 	UI_Draw();
+
+	DrawGraph(0, 0, Graphics::GetMainGraphs("タイトル背景"), true);
+	DrawGraph(480, 150, Graphics::GetMainGraphs("タイトル"), true);
 	BaseScene::DrawDebugSceneData();
 }

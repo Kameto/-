@@ -1,6 +1,7 @@
 #pragma once
 #include "GameLoadScene.h"
 #include "LabyrinthScene.h"
+#include "SaveAreaScene.h"
 
 class GameMgr
 {
