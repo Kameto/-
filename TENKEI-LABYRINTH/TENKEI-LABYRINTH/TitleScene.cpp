@@ -39,5 +39,7 @@ void TitleScene::Draw()
 
 	DrawGraph(0, 0, Graphics::GetMainGraphs("タイトル背景"), true);
 	DrawGraph(480, 150, Graphics::GetMainGraphs("タイトル"), true);
+	DrawFormatString(1500, 0, 0x000000, "size : %d", (unsigned)Graphics::player.graph.size());
+
 	BaseScene::DrawDebugSceneData();
 }

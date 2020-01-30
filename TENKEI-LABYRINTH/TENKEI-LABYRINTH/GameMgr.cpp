@@ -27,11 +27,15 @@ void GameMgr::ChangeGameScene()
 	case GS_Name::eSaveArea:
 		this->mpGameScene = new SaveAreaScene();
 		break;
+	case GS_Name::eBattle:
+		this->mpGameScene = new BattleScene();
+		break;
 	case GS_Name::eStatusCheck:
 		break;
 	case GS_Name::eSaveDisplay:
 		break;
 	case GS_Name::eGachaDisplay:
+		this->mpGameScene = new GachaDisplayScene();
 		break;
 	default:
 		break;

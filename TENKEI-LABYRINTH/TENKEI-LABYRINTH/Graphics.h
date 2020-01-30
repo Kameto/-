@@ -20,5 +20,10 @@ public:
 	static int GetMainGraphs(const string name);
 	static int GetMainGraphs(const int _num);
 
+	static void LoadPlayerGraph();
+	static void ReleasePlayerGraph();
+	static int GetPlayerGraphs(const string name);
+
 	static GraphList main;
+	static GraphList player;
 };

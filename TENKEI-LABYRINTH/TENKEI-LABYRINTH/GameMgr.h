@@ -1,5 +1,7 @@
 #pragma once
+#include "BattleScene.h"
 #include "GameLoadScene.h"
+#include "GachaDisplayScene.h"
 #include "LabyrinthScene.h"
 #include "SaveAreaScene.h"
 

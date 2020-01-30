@@ -7,6 +7,7 @@ typedef enum class GameSceneName
 	eGameLoad,		// ロード画面
 	eLabyrinth,		// 探索画面
 	eSaveArea,		// セーブエリア
+	eBattle,		// 戦闘画面
 	eStatusCheck,	// ステータス確認
 	eSaveDisplay,	// セーブ画面
 	eGachaDisplay,	// ガチャ画面

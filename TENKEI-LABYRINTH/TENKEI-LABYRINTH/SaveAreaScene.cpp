@@ -21,7 +21,7 @@ SaveAreaScene::~SaveAreaScene()
 
 void SaveAreaScene::GameUpdate()
 {
-	BaseGameScene::ChangeGameScene(GS_Name::eGameLoad);
+	BaseGameScene::ChangeGameScene(GS_Name::eBattle);
 
 	/**** エフェクト処理 ****/
 	if (effectCounter[0] > 0)
@@ -64,9 +64,11 @@ void SaveAreaScene::GameDraw()
 					DrawGraph(j * 64, i * 64, Graphics::GetMainGraphs("岩壁"), true);
 				}
 			}
+			DrawBox(j * 64, i * 64, j * 64 + 64, i * 64 + 64, 0xFF0000, false);
 		}
 	}
 	DrawRotaGraph(WND_WIDTH / 2, WND_HEIGHT / 2, 1.0, 0.0, Graphics::GetMainGraphs("セーブポイント"), true);
+	DrawRotaGraph(WND_WIDTH / 2, WND_HEIGHT / 2 - 16, 1.0, 0.0, Graphics::GetPlayerGraphs("Chara0"), true);
 	/************************************/
 
 	/**** エフェクト描画 ****/

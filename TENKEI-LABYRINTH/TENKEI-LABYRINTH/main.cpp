@@ -30,6 +30,7 @@ int _stdcall WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	SceneMgr* smgr	 = new SceneMgr();
 	Graphics* graph	 = new Graphics();
 	graph->LoadMainGraphs();
+	graph->LoadPlayerGraph();
 
 	// メッセージループ
 	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_END) == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
