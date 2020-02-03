@@ -2,6 +2,9 @@
 
 GraphList Graphics::main;
 GraphList Graphics::player;
+GraphList Graphics::item;
+GraphList Graphics::number;
+mutex Graphics::mtx;
 
 Graphics::Graphics()
 {
@@ -15,8 +18,10 @@ Graphics::~Graphics()
 	ReleasePlayerGraph();
 }
 
+/**** Mainフォルダ画像 ****/
 void Graphics::LoadMainGraphs()
 {
+	lock_guard<mutex>lock(mtx);
 	for (const fs::directory_entry& x : fs::directory_iterator("graph/main"))
 	{
 		const string address = x.path().string<char>();
@@ -41,14 +46,12 @@ int Graphics::GetMainGraphs(const string name)
 {
 	return main.graph.at(name);
 }
+/**************************/
 
-int Graphics::GetMainGraphs(const int _num)
-{
-	return main.graph.at(main.graphName.at(_num));
-}
-
+/**** Playerフォルダ画像 ****/
 void Graphics::LoadPlayerGraph()
 {
+	lock_guard<mutex>lock(mtx);
 	for (const fs::directory_entry& x : fs::directory_iterator("graph\\chara\\player"))
 	{
 		const string address = x.path().string<char>();
@@ -73,4 +76,63 @@ void Graphics::ReleasePlayerGraph()
 int Graphics::GetPlayerGraphs(const string name)
 {
 	return player.graph.at(name);
+}
+/****************************/
+
+/**** Itemフォルダ画像 ****/
+void Graphics::LoadItemGraph()
+{
+	lock_guard<mutex>lock(mtx);
+	for (const fs::directory_entry& x : fs::directory_iterator("graph\\item"))
+	{
+		const string address = x.path().string<char>();
+		const string name = x.path().stem().string<char>();
+		item.graph.insert(make_pair(name, LoadGraph(address.c_str())));
+		item.graphName.push_back(name);
+	}
+}
+
+void Graphics::ReleaseItemGraph()
+{
+	for (int i = 0, n = (unsigned)item.graph.size(); i < n; i++)
+	{
+		DeleteGraph(item.graph.at((item.graphName.at(i))));
+	}
+	item.graph.erase(item.graph.begin(), item.graph.end());
+	item.graphName.erase(item.graphName.begin(), item.graphName.end());
+	item.graphName.shrink_to_fit();
+}
+
+int Graphics::GetItemGraphs(const string name)
+{
+	return item.graph.at(name);
+}
+/**************************/
+
+void Graphics::LoadNumberGraph()
+{
+	lock_guard<mutex>lock(mtx);
+	for (const fs::directory_entry& x : fs::directory_iterator("graph\\number"))
+	{
+		const string address = x.path().string<char>();
+		const string name = x.path().stem().string<char>();
+		number.graph.insert(make_pair(name, LoadGraph(address.c_str())));
+		number.graphName.push_back(name);
+	}
+}
+
+void Graphics::ReleaseNumberGraph()
+{
+	for (int i = 0, n = (unsigned)number.graph.size(); i < n; i++)
+	{
+		DeleteGraph(number.graph.at((number.graphName.at(i))));
+	}
+	number.graph.erase(number.graph.begin(), number.graph.end());
+	number.graphName.erase(number.graphName.begin(), number.graphName.end());
+	number.graphName.shrink_to_fit();
+}
+
+int Graphics::GetNumberGraphs(const string name)
+{
+	return number.graph.at(name);
 }

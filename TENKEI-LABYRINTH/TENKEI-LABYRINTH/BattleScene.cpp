@@ -18,28 +18,32 @@ void BattleScene::GameUpdate()
 
 void BattleScene::GameDraw()
 {
-	for (int i = 0; i < 7; i++)
+	/**** 背景 ***/
+	for (int i = 0, n = (WND_HEIGHT/ 64); i < n; i++)
 	{
-		for (int j = 0; j < (WND_WIDTH / 64); j++)
+		for (int j = 0, m = (WND_WIDTH / 64); j < m; j++)
 		{
-			if (i % 4 == 0 && j % 4 == 0)
-			{
-				DrawRotaGraph(j * 64 + 32, i * 64 + 32, 2.0, 0.0, Graphics::GetMainGraphs("壁"), true);
-			}
-			else
+			if ((i * 64) < (WND_HEIGHT / 3.5))
 			{
 				DrawGraph(j * 64, i * 64, Graphics::GetMainGraphs("岩壁"), true);
 			}
+			else
+			{
+				DrawGraph(j * 64, i * 64, Graphics::GetMainGraphs("岩床"), true);
+			}
 		}
 	}
-	for (int i = 0; i < 10; i ++)
+	for(int i = 0; i < (WND_WIDTH / 256) + 1; i++)
 	{
-		for (int j = 0; j < (WND_WIDTH / 64); j++)
-		{
-			DrawRotaGraph(j * 96 + 32, (64 * 7) + i * 96, 1.5, 0.0, Graphics::GetMainGraphs("岩床"), true);
-		}
+		SetDrawBlendMode(DX_BLENDGRAPHTYPE_ALPHA, 200);
+		DrawRotaGraph(i * 256, 160, 4.0, 0.0, Graphics::GetMainGraphs("岩壁"), true);
+		SetDrawBlendMode(DX_BLENDGRAPHTYPE_NORMAL, 0);
 	}
+	/*************/
+	
+	/**** コマンドエリア ****/
 	DrawGraph(0, (WND_HEIGHT / 2) + 216, Graphics::GetMainGraphs("コマンドエリア"), true);
+	/************************/
 
 	BaseGameScene::NowSceneDraw();
 }
