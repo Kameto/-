@@ -1,6 +1,8 @@
 #pragma once
 #include "BaseScene.h"
+#include "CameraData.h"
 #include "GameMgr.h"
+#include "MapData.h"
 
 class GameScene :
 	public BaseScene
@@ -14,5 +16,7 @@ public:
 	void Draw();
 
 private:
+	CameraData* cd;
 	GameMgr* gmgr;
+	MapData* md;
 };

@@ -3,10 +3,14 @@
 GameScene::GameScene()
 {
 	gmgr = new GameMgr();
+	md = new MapData();
+	cd = new CameraData();
 }
 
 GameScene::~GameScene()
 {
+	RELEASE(cd);
+	RELEASE(md);
 	RELEASE(gmgr);
 }
 

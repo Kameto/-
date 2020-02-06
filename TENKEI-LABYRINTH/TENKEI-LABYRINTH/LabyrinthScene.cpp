@@ -4,35 +4,32 @@ LabyrinthScene::LabyrinthScene()
 	: BaseGameScene()
 {
 	BaseGameScene::nowGameScene = GS_Name::eLabyrinth;
+	dcX = MapData::GetCenterX();
+	dcY = MapData::GetCenterX();
+	myChara = new Player(MapData::GetCenterX(), MapData::GetCenterY());
 }
 
 LabyrinthScene::~LabyrinthScene()
 {
-
+	RELEASE(myChara);
+	MapData::UnsetData();
+	CameraData::UnsetData();
 }
 
 void LabyrinthScene::GameUpdate()
 {
 	BaseGameScene::ChangeGameScene(GS_Name::eSaveArea);
+	myChara->CharaUpdate();
+	CameraData::Update(myChara->cy, myChara->cx);
 }
 
 void LabyrinthScene::GameDraw()
 {
 	/**** ƒ}ƒbƒv•`‰æ ****/
-	for (int i = 0; i < (WND_HEIGHT / 64) + 1; i++)
-	{
-		for (int j = 0; j < (WND_WIDTH / 64); j++)
-		{
-			if ((i * j) % 5 == 0)
-			{
-				DrawGraph(j * 64, i * 64, Graphics::GetMainGraphs("Šâ•Ç"), true);
-			}
-			else
-			{
-				DrawGraph(j * 64, i * 64, Graphics::GetMainGraphs("Šâ°"), true);
-			}
-		}
-	}
+	MapData::Draw();
+	myChara->CharaDraw();
+	DrawFormatString(1200, 0, 0xFFFFFF, "mcX : %d\nmcY : %d", MapData::GetCenterX(), MapData::GetCenterY());
+	DrawFormatString(1200, 64, 0xFFFFFF, "chara->cx : %d\nchara->cy : %d", myChara->cx, myChara->cy);
 	/********************/
 
 	BaseGameScene::NowSceneDraw();

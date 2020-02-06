@@ -1,6 +1,7 @@
 #include "DefFunc.h"
 #include "SceneMgr.h"
 #include "Graphics.h"
+#include "MyRand.h"
 
 int _stdcall WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {
@@ -29,6 +30,7 @@ int _stdcall WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	JoyPad* pad		 = new JoyPad();
 	SceneMgr* smgr	 = new SceneMgr();
 	Graphics* graph	 = new Graphics();
+	MyRand* mr		 = new MyRand();
 
 	// メッセージループ
 	while (ProcessMessage() == 0 && CheckHitKey(KEY_INPUT_END) == 0 && CheckHitKey(KEY_INPUT_ESCAPE) == 0)
@@ -43,6 +45,7 @@ int _stdcall WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance,
 	}
 
 	// ポインター解放
+	RELEASE(mr);
 	RELEASE(graph);
 	RELEASE(smgr);
 	RELEASE(pad);
