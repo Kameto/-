@@ -8,9 +8,6 @@ typedef class LabyrinthScene
 	: public BaseGameScene
 {
 private:
-	int dcX;
-	int dcY;
-
 public:
 	LabyrinthScene();
 	~LabyrinthScene();

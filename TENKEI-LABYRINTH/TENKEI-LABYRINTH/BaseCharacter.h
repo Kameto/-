@@ -18,5 +18,6 @@ public:
 	virtual void CharaDraw() = 0;
 
 protected:
+	bool CheckHitBody();
 	void SetDrawPoint(const int _x, const int _y);
 };

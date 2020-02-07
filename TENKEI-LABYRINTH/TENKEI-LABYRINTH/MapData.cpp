@@ -1,6 +1,8 @@
 #include "MapData.h"
 
 vector<vector<int>>MapData::mapdata;
+int MapData::px;
+int MapData::py;
 
 MapData::MapData()
 {
@@ -10,6 +12,16 @@ MapData::MapData()
 MapData::~MapData()
 {
 	UnsetData();
+}
+
+int MapData::GetCenterY()
+{
+	return (unsigned)mapdata.size() / 2;
+}
+
+int MapData::GetCenterX()
+{
+	return (unsigned)mapdata.at(GetCenterY()).size() / 2;
 }
 
 void MapData::Draw()
@@ -35,12 +47,28 @@ void MapData::Draw()
 			}
 		}
 	}
-
+	
+	// ミニマップ
 	for (int i = 0, n = (unsigned)MapData::mapdata.size(); i < n; i++)
 	{
 		for (int j = 0, m = (unsigned)MapData::mapdata.at(i).size(); j < m; j++)
 		{
-			DrawFormatString(1200 + j * 16, i * 16, 0x000000, "%d", MapData::mapdata.at(i).at(j));
+			if (MapData::mapdata.at(i).at(j) == 0)
+			{
+				DrawBox(1350 + (j * 4), (i * 4), 1350 + (j * 4) + 4, (i * 4) + 4, 0xFFFFFF, true);
+			}
+			else if (MapData::mapdata.at(i).at(j) == 1)
+			{
+				DrawBox(1350 + (j * 4), (i * 4), 1350 + (j * 4) + 4, (i * 4) + 4, 0x000000, true);
+			}
+			else
+			{
+				DrawBox(1350 + (j * 4), (i * 4), 1350 + (j * 4) + 4, (i * 4) + 4, 0xFF0000, true);
+			}
+			if (i == py && j == px)
+			{
+				DrawBox(1350 + (j * 4), (i * 4), 1350 + (j * 4) + 4, (i * 4) + 4, 0x00FF00, true);
+			}
 		}
 	}
 }
@@ -83,7 +111,6 @@ void MapData::SetMapData()
 			}
 		}
 	}
-	int a = 0;
 }
 
 void MapData::UnsetData()
@@ -93,18 +120,9 @@ void MapData::UnsetData()
 		for (int i = 0, n = (unsigned)mapdata.size(); i < n; i++)
 		{
 			mapdata.at(i).erase(mapdata.at(i).begin(), mapdata.at(i).end());
+			mapdata.at(i).shrink_to_fit();
 		}
 		mapdata.erase(mapdata.begin(), mapdata.end());
 		mapdata.shrink_to_fit();
 	}
-}
-
-int MapData::GetCenterX()
-{
-	return (unsigned)mapdata.at(GetCenterY()).size() / 2;
-}
-
-int MapData::GetCenterY()
-{
-	return (unsigned)mapdata.size() / 2;
 }

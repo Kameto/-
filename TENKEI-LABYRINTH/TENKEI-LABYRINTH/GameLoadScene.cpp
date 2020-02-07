@@ -5,7 +5,7 @@ GameLoadScene::GameLoadScene()
 {
 	BaseGameScene::nowGameScene = GS_Name::eGameLoad;
 	MapData::SetMapData();
-	CameraData::SetMapCenter(MapData::GetCenterY(), MapData::GetCenterX());
+	CameraData::SetMapCenter(0,0);
 }
 
 GameLoadScene::~GameLoadScene()

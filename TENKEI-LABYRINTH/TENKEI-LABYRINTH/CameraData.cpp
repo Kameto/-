@@ -15,13 +15,13 @@ CameraData::~CameraData()
 	UnsetData();
 }
 
-void CameraData::Update(int &py, int &px)
+void CameraData::Update(int &px, int &py)
 {
 	cX = mcX - px;
 	cY = mcY - py;
 }
 
-void CameraData::SetMapCenter(const int _y, const int _x)
+void CameraData::SetMapCenter(const int _x, const int _y)
 {
 	mcX = _x;
 	mcY = _y;

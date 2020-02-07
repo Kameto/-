@@ -24,6 +24,11 @@ BaseCharacter::~BaseCharacter()
 	dy = 0;
 }
 
+bool BaseCharacter::CheckHitBody()
+{
+	return false;
+}
+
 void BaseCharacter::SetDrawPoint(const int _x, const int _y)
 {
 	dx = _x;

@@ -10,9 +10,9 @@ private:
 public:
 	CameraData();
 	~CameraData();
-	static void SetMapCenter(const int _y, const int _x);
+	static void SetMapCenter(const int _x, const int _y);
 	static void UnsetData();
-	static void Update(int &py, int &px);
+	static void Update(int &px, int &py);
 	static int GetCameraX();
 	static int GetCameraY();
 };
