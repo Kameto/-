@@ -99,7 +99,7 @@ void MapData::SetMapData()
 				}
 				else
 				{
-					if (MyRand::GetRand() % 5 == 0)
+					if (MyRand::GetRand() % 3 == 0)
 					{
 						mapdata.at(i).at(j) = 0;
 					}

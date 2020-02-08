@@ -17,8 +17,8 @@ CameraData::~CameraData()
 
 void CameraData::Update(int &px, int &py)
 {
-	cX = mcX - px;
-	cY = mcY - py;
+	cX = mcX - px + ((WND_WIDTH / 2) / 64);
+	cY = mcY - py + ((WND_HEIGHT / 2) / 64);
 }
 
 void CameraData::SetMapCenter(const int _x, const int _y)

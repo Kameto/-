@@ -3,13 +3,28 @@
 #include "DefFunc.h"
 #include "Keyboard.h"
 #include "MapData.h"
+
+// 方向定義
+typedef enum class Direction
+{
+	eNone,	// 方向なし
+	eUp,	// 上方向
+	eDown,	// 下方向
+	eRight,	// 右方向
+	eLeft,	// 左方向
+	eNUM	// 総数
+}Dir;
+
+// 全キャラクターのベース定義
 class BaseCharacter
 {
 public:
-	int cx;// マップ用座標
-	int cy;// マップ用座標
-	int dx;// 描画座標
-	int dy;// 描画座標
+	int cx;			// マップ用座標
+	int cy;			// マップ用座標
+	int dx;			// 描画座標
+	int dy;			// 描画座標
+	Dir moveDir;	// 移動方向
+	Dir drawDir;	// 描画時表示方向
 
 	BaseCharacter();
 	BaseCharacter(const int _x, const int _y);
@@ -18,6 +33,19 @@ public:
 	virtual void CharaDraw() = 0;
 
 protected:
-	bool CheckHitBody();
+	inline bool CheckHitBody()
+	{
+		if ((MapData::CheckMapData(cx, cy - 1) == 0 && moveDir == Dir::eUp)
+			|| (MapData::CheckMapData(cx, cy + 1) == 0 && moveDir == Dir::eDown)
+			|| (MapData::CheckMapData(cx - 1, cy) == 0 && moveDir == Dir::eLeft)
+			|| (MapData::CheckMapData(cx + 1, cy) == 0 && moveDir == Dir::eRight))
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
 	void SetDrawPoint(const int _x, const int _y);
 };

@@ -19,17 +19,45 @@ Player::~Player()
 
 void Player::CharaUpdate()
 {
-	if (Keyboard::GetKey(KEY_INPUT_UP) > 0) { cy--; }
-	else if (Keyboard::GetKey(KEY_INPUT_DOWN) > 0) { cy++; }
-	else if (Keyboard::GetKey(KEY_INPUT_LEFT) > 0) { cx--; }
-	else if (Keyboard::GetKey(KEY_INPUT_RIGHT) > 0) { cx++; }
+	// 向き変更入力処理
+	if (Keyboard::GetKey(KEY_INPUT_UP) > 0) { moveDir = Dir::eUp; }
+	else if (Keyboard::GetKey(KEY_INPUT_DOWN) > 0) { moveDir = Dir::eDown; }
+	else if (Keyboard::GetKey(KEY_INPUT_LEFT) > 0) { moveDir = Dir::eLeft; }
+	else if (Keyboard::GetKey(KEY_INPUT_RIGHT) > 0) { moveDir = Dir::eRight; }
+	else { moveDir = Dir::eNone; }
 
+	// マップの判定処理
+	if (!BaseCharacter::CheckHitBody())
+	{
+		moveDir = Dir::eNone;
+	}
+
+	// 移動処理
+	switch (moveDir)
+	{
+	case Dir::eUp:
+		cy--;
+		break;
+	case Dir::eDown:
+		cy++;
+		break;
+	case Dir::eLeft:
+		cx--;
+		break;
+	case Dir::eRight:
+		cx++;
+		break;
+	case Dir::eNone:
+		break;
+	default:
+		break;
+	}
+
+	// プレイヤーの位置取得
 	MapData::SetPlayerPoint(cx, cy);
 }
 
 void Player::CharaDraw()
 {
 	DrawGraph(dx, dy - 32, Graphics::GetPlayerGraphs("Chara0"), true);
-	//DrawBoxAA(dx, dy - 32, dx + 64, dy + 32, 0xFF0000, false, 2.0f);
-	//DrawGraph(cx * 64, cy * 64, Graphics::GetPlayerGraphs("Chara0"), true);
 }

@@ -1,4 +1,5 @@
 #pragma once
+#include "DefFunc.h"
 class CameraData
 {
 private:

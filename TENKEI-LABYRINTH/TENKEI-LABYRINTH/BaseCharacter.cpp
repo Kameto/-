@@ -6,6 +6,8 @@ BaseCharacter::BaseCharacter()
 	cy = 0;
 	dx = 0;
 	dy = 0;
+	moveDir = Dir::eNone;
+	drawDir = Dir::eDown;
 }
 
 BaseCharacter::BaseCharacter(const int _x, const int _y)
@@ -14,6 +16,8 @@ BaseCharacter::BaseCharacter(const int _x, const int _y)
 	cy = _y;
 	dx = 0;
 	dy = 0;
+	moveDir = Dir::eNone;
+	drawDir = Dir::eDown;
 }
 
 BaseCharacter::~BaseCharacter()
@@ -22,11 +26,6 @@ BaseCharacter::~BaseCharacter()
 	cy = 0;
 	dy = 0;
 	dy = 0;
-}
-
-bool BaseCharacter::CheckHitBody()
-{
-	return false;
 }
 
 void BaseCharacter::SetDrawPoint(const int _x, const int _y)
