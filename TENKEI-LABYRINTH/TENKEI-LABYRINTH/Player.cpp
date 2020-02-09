@@ -4,17 +4,25 @@ Player::Player()
 	: BaseCharacter()
 {
 	SetDrawPoint(WND_WIDTH / 2, WND_HEIGHT / 2);
+	SetGraphSize(Graphics::GetPlayerGraphs("Chara0"));
+	areaFlag = false;
 }
 
 Player::Player(const int _x, const int _y)
 	: BaseCharacter(_x, _y)
 {
 	SetDrawPoint(WND_WIDTH / 2, WND_HEIGHT / 2);
+	areaFlag = false;
 }
 
 Player::~Player()
 {
 	SetDrawPoint(0, 0);
+}
+
+void Player::SetFlag(const bool flag)
+{
+	areaFlag = flag;
 }
 
 void Player::CharaUpdate()
@@ -26,38 +34,63 @@ void Player::CharaUpdate()
 	else if (Keyboard::GetKey(KEY_INPUT_RIGHT) > 0) { moveDir = Dir::eRight; }
 	else { moveDir = Dir::eNone; }
 
-	// マップの判定処理
-	if (!BaseCharacter::CheckHitBody())
+	if (areaFlag)
 	{
-		moveDir = Dir::eNone;
+		switch (moveDir)
+		{
+		case Dir::eUp:
+			dy -= 3;
+			break;
+		case Dir::eDown:
+			dy += 3;
+			break;
+		case Dir::eLeft:
+			dx -= 3;
+			break;
+		case Dir::eRight:
+			dx += 3;
+			break;
+		case Dir::eNone:
+			break;
+		default:
+			break;
+		}
 	}
-
-	// 移動処理
-	switch (moveDir)
+	else
 	{
-	case Dir::eUp:
-		cy--;
-		break;
-	case Dir::eDown:
-		cy++;
-		break;
-	case Dir::eLeft:
-		cx--;
-		break;
-	case Dir::eRight:
-		cx++;
-		break;
-	case Dir::eNone:
-		break;
-	default:
-		break;
-	}
+		// マップの判定処理
+		if (!BaseCharacter::CheckHitBody())
+		{
+			moveDir = Dir::eNone;
+		}
 
-	// プレイヤーの位置取得
-	MapData::SetPlayerPoint(cx, cy);
+		// 移動処理
+		switch (moveDir)
+		{
+		case Dir::eUp:
+			cy--;
+			break;
+		case Dir::eDown:
+			cy++;
+			break;
+		case Dir::eLeft:
+			cx--;
+			break;
+		case Dir::eRight:
+			cx++;
+			break;
+		case Dir::eNone:
+			break;
+		default:
+			break;
+		}
+
+		// プレイヤーの位置取得
+		MapData::SetPlayerPoint(cx, cy);
+	}
 }
 
 void Player::CharaDraw()
 {
-	DrawGraph(dx, dy - 32, Graphics::GetPlayerGraphs("Chara0"), true);
+	DrawRotaGraph(dx + 28, dy, 1.0, 0.0, Graphics::GetPlayerGraphs("Chara0"), true);
 }

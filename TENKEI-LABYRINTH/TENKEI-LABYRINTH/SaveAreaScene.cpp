@@ -4,17 +4,24 @@ SaveAreaScene::SaveAreaScene()
 	: BaseGameScene()
 {
 	BaseGameScene::nowGameScene = GS_Name::eSaveArea;
-
+	mychara = new Player();
+	mychara->SetFlag(true);
 	for (int i = 0, n = EFFECT_NUM; i < n; i++)
 	{
 		effectCounter[i] = 0;
+		effect.at(i) = new EffectBody();
 	}
+	effect.at(0)->SetData(WND_WIDTH / 2, WND_HEIGHT / 2, 256, true, BodyName::eCircle);
+	effect.at(1)->SetData(WND_WIDTH / 2, WND_HEIGHT / 2, 32, true, BodyName::eCircle);
+	effect.at(1)->SetColor(0xFFAA00);
 }
 
 SaveAreaScene::~SaveAreaScene()
 {
+	RELEASE(mychara);
 	for (int i = 0, n = EFFECT_NUM; i < n; i++)
 	{
+		RELEASE(effect.at(i));
 		effectCounter[i] = 0;
 	}
 }
@@ -22,6 +29,24 @@ SaveAreaScene::~SaveAreaScene()
 void SaveAreaScene::GameUpdate()
 {
 	BaseGameScene::ChangeGameScene(GS_Name::eBattle);
+
+	mychara->CharaUpdate();
+	for (int i = 0, n = EFFECT_NUM; i < n; i++)
+	{
+		if (effect.at(1)->HitBody(mychara))
+		{
+			if (Keyboard::GetKey(KEY_INPUT_S) == 1)
+			{
+				//nowGameScene = GameSceneName::eSaveDisplay;
+			}
+		}
+	}
+
+	// ガチャ画面に移動する
+	if (Keyboard::GetKey(KEY_INPUT_G) == 1)
+	{
+		nowGameScene = GameSceneName::eGachaDisplay;
+	}
 
 	/**** エフェクト処理 ****/
 	if (effectCounter[0] > 0)
@@ -68,10 +93,16 @@ void SaveAreaScene::GameDraw()
 		}
 	}
 	DrawRotaGraph(WND_WIDTH / 2, WND_HEIGHT / 2, 1.0, 0.0, Graphics::GetMainGraphs("セーブポイント"), true);
-	DrawRotaGraph(WND_WIDTH / 2, WND_HEIGHT / 2 - 16, 1.0, 0.0, Graphics::GetPlayerGraphs("Chara0"), true);
+	mychara->CharaDraw(); 
 	/************************************/
 
 	/**** エフェクト描画 ****/
+	for (int i = 0, n = EFFECT_NUM; i < n; i++)
+	{
+		effect.at(i)->BodyDraw();
+		DrawFormatString(780, i * 32, 0xFFFFFF, effect.at(i)->checkFlag ? "flag : true" : "flag : false");
+		DrawFormatString(900, i * 32, 0xFFFFFF, "x : %d_y : %d_r : %d_Body : %d", effect.at(i)->eX, effect.at(i)->eY, effect.at(i)->eR, effect.at(i)->eBN);
+	}
 	SetDrawBlendMode(DX_BLENDGRAPHTYPE_ALPHA, 255 - effectCounter[0]);
 	DrawCircle(WND_WIDTH / 2, WND_HEIGHT / 2, 48 + effectCounter[0], 0x777777);
 	DrawCircle(WND_WIDTH / 2, WND_HEIGHT / 2, 64 + effectCounter[0], 0x444444);

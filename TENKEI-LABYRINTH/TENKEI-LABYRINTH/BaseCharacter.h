@@ -7,12 +7,12 @@
 // 方向定義
 typedef enum class Direction
 {
-	eNone,	// 方向なし
-	eUp,	// 上方向
-	eDown,	// 下方向
-	eRight,	// 右方向
-	eLeft,	// 左方向
-	eNUM	// 総数
+	eNone,		// 方向なし
+	eUp,		// 上方向
+	eDown,		// 下方向
+	eRight,		// 右方向
+	eLeft,		// 左方向
+	eChara_NUM	// 総数
 }Dir;
 
 // 全キャラクターのベース定義
@@ -23,6 +23,8 @@ public:
 	int cy;			// マップ用座標
 	int dx;			// 描画座標
 	int dy;			// 描画座標
+	int sx;			// 横サイズ
+	int sy;			// 縦サイズ
 	Dir moveDir;	// 移動方向
 	Dir drawDir;	// 描画時表示方向
 
@@ -48,4 +50,5 @@ protected:
 		}
 	}
 	void SetDrawPoint(const int _x, const int _y);
+	void SetGraphSize(const int _gr);
 };

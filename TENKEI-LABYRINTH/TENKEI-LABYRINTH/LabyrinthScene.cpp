@@ -5,7 +5,7 @@ LabyrinthScene::LabyrinthScene()
 {
 	BaseGameScene::nowGameScene = GS_Name::eLabyrinth;
 	myChara = new Player(MapData::GetCenterX(), MapData::GetCenterY());
-	for (int i = 0; i < 5; i++)
+	for (int i = 0, n = EventName::eEve_NUM; i < n; i++)
 	{
 		eventCounter[i] = 0;
 		eventFlag[i] = false;
@@ -21,22 +21,31 @@ LabyrinthScene::~LabyrinthScene()
 
 void LabyrinthScene::GameUpdate()
 {
+	/**** debugコード ****/
 	BaseGameScene::ChangeGameScene(GS_Name::eSaveArea);
-	
+	/*********************/
+
 	/**** キャラクター処理 ****/
-	if (!eventFlag[0])
+	if (EventCheck())
 	{
 		myChara->CharaUpdate();
 
-		// プレイヤーがワープマスポイントに乗ったら画面を切り替える
+		// プレイヤーがワープマスポイントに乗ったらフラグを立てる
 		if (MapData::CheckMapData(myChara->cx, myChara->cy) == 2)
 		{
-			eventFlag[0] = true;
+			eventFlag[EventName::eWorp] = true;
+		}
+
+		// debugコード
+		if (Keyboard::GetKey(KEY_INPUT_B) == 1)
+		{
+			eventFlag[EventName::eBattle] = true;
 		}
 	}
 	else
 	{
-		WorpUpdate();
+		if (eventFlag[EventName::eWorp]) { WorpUpdate(); }
+		if (eventFlag[EventName::eBattle]) { BattleUpdate(); }
 	}
 	/**************************/
 
@@ -56,11 +65,19 @@ void LabyrinthScene::GameDraw()
 	/********************/
 
 	/**** エフェクト描画 ****/
-	if (eventFlag[0]) 
+	if (eventFlag[EventName::eWorp])
 	{
 		SetDrawBlendMode(DX_BLENDGRAPHTYPE_ALPHA, eventCounter[0]);
 		DrawCircle(WND_WIDTH / 2, WND_HEIGHT / 2, eventCounter[0] + ((eventCounter[0] * 4)), 0xFFFFFF, true);
 		SetDrawBlendMode(DX_BLENDGRAPHTYPE_NORMAL, 0);
+	}
+	if(eventFlag[EventName::eBattle])
+	{
+		for (int i = 0, n = 8; i < n; i++)
+		{
+			DrawBox(0, i * (WND_HEIGHT / 8), 
+				1920, i * (WND_HEIGHT / 8) + eventCounter[EventName::eBattle], 0x000000, true);
+		}
 	}
 	/************************/
 
@@ -72,14 +89,40 @@ void LabyrinthScene::GameDraw()
 	/*********************/
 }
 
+bool LabyrinthScene::EventCheck()
+{
+	bool check = true;
+	for (int i = 0, n = EventName::eEve_NUM; i < n; i++)
+	{
+		if(eventFlag[i])
+		{
+			check = false;
+			break;
+		}
+	}
+	return check;
+}
+
 void LabyrinthScene::WorpUpdate()
 {
-	if (eventCounter[0] < 255)
+	if (eventCounter[EventName::eWorp] < 255)
 	{
-		eventCounter[0]++;
+		eventCounter[EventName::eWorp]++;
 	}
 	else
 	{
 		nowGameScene = GameSceneName::eSaveArea;
+	}
+}
+
+void LabyrinthScene::BattleUpdate()
+{
+	if (eventCounter[EventName::eBattle] < (WND_HEIGHT / 8))
+	{
+		eventCounter[EventName::eBattle]+=2;
+	}
+	else
+	{
+		nowGameScene = GameSceneName::eBattle;
 	}
 }
