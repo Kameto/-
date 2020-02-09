@@ -35,6 +35,7 @@ void SaveAreaScene::GameUpdate()
 	{
 		if (effect.at(1)->HitBody(mychara))
 		{
+			// ƒZ[ƒu‰æ–Ê‚ÉˆÚ“®‚·‚é
 			if (Keyboard::GetKey(KEY_INPUT_S) == 1)
 			{
 				//nowGameScene = GameSceneName::eSaveDisplay;
